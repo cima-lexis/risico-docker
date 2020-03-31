@@ -5,7 +5,7 @@ This repo contains a Docker container that allow to run the RISICO model using W
 ## Content of the repo
 
 * src: source directory for the containers
-  * RISICO2015: RISICO source code
+  * RISICO2015: RISICO binary
   * adapter: input and ouput python adapters for RISICO
   * risico: static data and configuration for the RISICO model
 * build.sh: build script for the container
@@ -28,4 +28,3 @@ To build the image, after you clone the repo locally, run the ```build.sh``` she
     $RUNDATE
 ```
 * the output of the RISICO model will be placed in the data/output directory
-
