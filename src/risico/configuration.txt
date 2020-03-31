@@ -1,0 +1,47 @@
+%RISICO 2015
+%
+%this is a comment
+%each row in this file is in the form 
+%VARIABLE=VALUE
+
+%Nome Algoritmo
+MODELNAME=RISICO
+
+%STATO0 base name for the state0 files for the models, date is appended to name at runtime
+STATO0=/home/risico/risico/STATE0/state0RISICO_
+
+%Cells definition file for the model
+CELLE=/home/risico/risico/STATIC/RISICO.txt
+VEG=/home/risico/risico/STATIC/p_vegetazione.csv
+PPF=/home/risico/risico/STATIC/ppf_index.txt
+
+%do not use the Temperature Contribution calculating Fire Spread
+USETCONTR=FALSE
+USENDVI=TRUE
+
+%Folder containing buffers for input files grid
+BUFFERS=/home/risico/risico/BUFFERS/
+
+
+
+%MODEL=MODEL_ID:NOMEDB:SPOOLPATH:GRID:FORMAT
+%Output file format. Can be BIN (binary) ZBIN (Gzipped binary), TXT (ascii), GEOTIF, ESRIGRD, SURFERGRD
+MODEL=RISICO:RISICO:/home/risico/risico/OUTPUT/:/home/risico/risico/GRID/RISICOGRID.txt:ZBIN
+%VARIABLE=MODEL_ID:NOME:NOMEDB:STORESTRATEGY:PRECISION
+
+VARIABLE=RISICO:V:V:MAX:0
+VARIABLE=RISICO:I:I:MAX:0
+VARIABLE=RISICO:VPPF:VPPF:MAX:0
+VARIABLE=RISICO:IPPF:IPPF:MAX:0
+
+VARIABLE=RISICO:VPPFNDVI:VPPFNDVI:MAX:0
+VARIABLE=RISICO:IPPFNDVI:IPPFNDVI:MAX:0
+VARIABLE=RISICO:VNDVI:VNDVI:MAX:0
+VARIABLE=RISICO:INDVI:INDVI:MAX:0
+
+VARIABLE=RISICO:dffm:UMB:MIN:-1
+VARIABLE=RISICO:W:W:MAX:-2
+VARIABLE=RISICO:meteoIndex2:METEOINDEX:MAX:0
+VARIABLE=RISICO:NDVI:NDVI:MEAN:-3
+
+
