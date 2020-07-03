@@ -13,8 +13,8 @@ fi
 cd /home/risico/
 export PYTHONPATH=$PYTHONPATH:/home/risico/adapter/
 echo "Convert WRF files"
-adapter/.venv/bin/python adapter/importer.py data/wrf/ input/ input_files.txt
+adapter/.venv/bin/python adapter/importer.py data/wrf/ data/observations input/ input_files.txt
 echo "Run RISICO"
 ./RISICO2015 $RUN_DATE risico/configuration.txt input_files.txt
 echo "Export file"
-adapter/.venv/bin/python adapter/exporter.py risico/OUTPUT/ data/output/risico_$RUN_DATE.nc
+adapter/.venv/bin/python adapter/exporter.py risico/OUTPUT/ data/output/risico_$RUN_DATE.nc $RUN_DATE

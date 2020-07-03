@@ -2,7 +2,7 @@ from utils.zbin import read_gzip_binary
 import sys
 import xarray as xr
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import numpy as np
 from progressbar import ProgressBar as PB
 
@@ -10,6 +10,9 @@ from progressbar import ProgressBar as PB
 out_folder = sys.argv[1]
 # netcdf output file
 filename = sys.argv[2]
+# run_date
+run_date_str = sys.argv[3]
+run_date = datetime.strptime(run_date_str, '%Y%m%d%H%M')
 
 files = os.listdir(out_folder)
 grid = None
@@ -18,9 +21,12 @@ outputs = {}
 bar = PB()
 for f in bar(files):
     if f.endswith('.zbin'):
-        model, model_date, date_ref, variable = f.split('_')
-        variable = variable.replace('.zbin','')
+        model, model_date, date_ref, variable = f.replace('.zbin','').split('_')
 
+        date_ref_obj = datetime.strptime(date_ref, '%Y%m%d%H%M')
+
+        if date_ref_obj <= run_date-timedelta(days=1): continue
+            
         if variable not in ['UMB', 'V', 'I', 'W', 'VPPF', 'IPPF']: continue
 
         if variable not in outputs:
