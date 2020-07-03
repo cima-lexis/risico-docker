@@ -49,7 +49,7 @@ with open(file_list_file, 'w') as file_list:
 
             lats = ds['XLAT'].values[0,:,:]
             lons = ds['XLONG'].values[0,:,:]
-            min_lat, max_lat, min_lon, max_lon, n_rows, n_cols = lats[0,0], lats[-1,0], lons[0,0], lons[0,-1], lats.shape[0], lons.shape[0]
+            min_lat, max_lat, min_lon, max_lon, n_rows, n_cols = lats[0,0], lats[-1,0], lons[0,0], lons[0,-1], lats.shape[0], lons.shape[1]
             grid = Grid(lats, lons, regular=False)
 
             date_str = ds.Times[0].values.tostring().decode("utf-8") 
