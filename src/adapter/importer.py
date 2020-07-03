@@ -44,6 +44,7 @@ wrf_dirs = list(filter(lambda d: not path.isfile(d), listdir(input_dir)))
 
 with open(file_list_file, 'w') as file_list:
     for wrf_dir in wrf_dirs:
+        print('processing', wrf_dir)
         wrf_run_dir = path.join(input_dir, wrf_dir)
         nc_files = list(map(
             lambda f: path.join(wrf_run_dir, f),
@@ -72,6 +73,7 @@ with open(file_list_file, 'w') as file_list:
 
                         date_str = ds.Times[0].values.tostring().decode("utf-8") 
                         date = datetime.strptime(date_str, '%Y-%m-%d_%H:%M:%S')
+                        date = pd.Timestamp(date).round('60min').to_pydatetime()
                         out_date_str = date.strftime('%Y%m%d%H%M')
 
                         out_file = f'{output_dir}/{out_date_str}_wrf_{var_risico}.zbin'
@@ -87,7 +89,7 @@ with open(file_list_file, 'w') as file_list:
             lambda s: s.endswith('.nc'), listdir(observations_dir)
     )))))
     for f in bar(nc_files):
-        print(f)
+        print('processing', f)
         ds = xr.open_dataset(f)
 
         for var_name, var_risico in var_names.items():
@@ -99,7 +101,7 @@ with open(file_list_file, 'w') as file_list:
 
                 for time in ds['time']:
                     date = datetime.utcfromtimestamp(time.values.tolist()/1e9)
-                    pd.Timestamp(date).round('60min').to_pydatetime()
+                    date = pd.Timestamp(date).round('60min').to_pydatetime()
                     out_date_str = date.strftime('%Y%m%d%H%M')
                     values = ds[var_name].sel(time=time).values
                     values[values<-9999 | np.isnan(values)] = -9999
