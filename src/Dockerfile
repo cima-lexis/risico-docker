@@ -31,7 +31,18 @@ RUN apt-get install -y \
 
 RUN useradd -m -p fp -s /bin/bash risico
 WORKDIR /home/risico/
+ADD --chown=risico ./requirements.txt .
+WORKDIR /home/risico/adapter
+RUN python3 -m virtualenv --python=python3 .venv
+ENV PATH=/home/risico/adapter/.venv/bin:$PATH
+RUN which python
+RUN which pip
+RUN pip install -r ../requirements.txt
+RUN python --version
+
+WORKDIR /home/risico/
 ADD ./risico.tgz .
+RUN chown -R risico:risico ./risico
 ADD --chown=risico RISICO2015 .
 RUN chmod +x RISICO2015
 
@@ -45,16 +56,11 @@ WORKDIR /home/risico/
 ADD ./adapter.tgz ./
 RUN chown -R risico:risico ./adapter
 
+
 USER risico
-WORKDIR /home/risico/adapter
-RUN python3 -m virtualenv --python=python3 .venv
-ENV PATH=/home/risico/adapter/.venv/bin:$PATH
-RUN which python
-RUN which pip
-RUN pip install -r requirements.txt
-RUN python --version
 
 
 
 WORKDIR /home/risico/
 ENTRYPOINT ["/home/risico/run_risico.sh"]
+#ENTRYPOINT ["/bin/bash"]
