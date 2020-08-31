@@ -83,11 +83,16 @@ with open(file_list_file, 'w') as file_list:
             except Exception as e: print('exception', f, e)
             
     # observations
-    nc_files = list(map(
-        lambda f: path.join(observations_dir, f),
-        sorted(list(filter(
-            lambda s: s.endswith('.nc'), listdir(observations_dir)
-    )))))
+    sub_dirs = list(filter(lambda d: not path.isfile(d), listdir(observations_dir)))
+    nc_files = []
+    for sub_dir in sub_dirs:
+        sub_dir_path = path.join(observations_dir, sub_dir)
+        nc_files.extend(list(map(
+            lambda f: path.join(sub_dir_path, f),
+            sorted(list(filter(
+                lambda s: s.endswith('.nc'), listdir(sub_dir_path)
+        ))))))
+    
     for f in bar(nc_files):
         print('processing', f)
         ds = xr.open_dataset(f)
