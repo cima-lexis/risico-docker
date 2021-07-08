@@ -2,6 +2,7 @@
 
 echo "Container args: $@"
 
+sudo chown -R risico:risico ./data
 # docker run -v /Volumes/data-sd/docker/wrf-02072018_00UTC/wrf/:/home/risico/wrf risico/builder
 
 if [ "$#" -eq 1 ]; then

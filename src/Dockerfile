@@ -27,9 +27,15 @@ RUN apt-get install -y \
 	python3 \
 	python3-pip \
 	python3-virtualenv \
-	nano 
+	nano \ 
+	sudo
 
-RUN useradd -m -p fp -s /bin/bash risico
+
+RUN adduser --disabled-password --gecos '' risico
+RUN adduser risico sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+#RUN useradd -m -p fp -s /bin/bash risico 
 WORKDIR /home/risico/
 ADD --chown=risico ./requirements.txt .
 WORKDIR /home/risico/adapter
