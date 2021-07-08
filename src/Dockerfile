@@ -55,7 +55,6 @@ RUN chmod +x run_risico.sh
 WORKDIR /home/risico/
 ADD ./adapter.tgz ./
 RUN chown -R risico:risico ./adapter
-RUN chown -R risico:risico ./data
 
 
 USER risico
