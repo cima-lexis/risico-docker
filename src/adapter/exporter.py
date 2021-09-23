@@ -27,7 +27,7 @@ for f in bar(files):
 
         if date_ref_obj <= run_date-timedelta(days=1): continue
             
-        if variable not in ['UMB', 'V', 'I', 'W', 'VPPF', 'IPPF']: continue
+        if variable not in ['UMB', 'V', 'I', 'W', 'VPPF', 'IPPF', 'WS', 'TEMP', 'HUM', 'RAIN']: continue
 
         if variable not in outputs:
             outputs[variable] = []
