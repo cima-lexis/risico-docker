@@ -6,6 +6,6 @@ progressbar2==3.47.0
 python-dateutil==2.8.1
 python-utils==2.3.0
 pytz==2019.3
-scipy==1.4.1
+scipy==1.10.0
 six==1.13.0
 xarray==0.14.1
